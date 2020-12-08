@@ -54,8 +54,7 @@ function generatePassword() {
   }
 
   // Generate password string and return
-  var i;
-  for (i = 0; i < passwordLength; i++) {
+  for (var i = 0; i < passwordLength; i++) {
     // Generate random index from 0 to length of potential character string
     var index = Math.floor(Math.random() * potentialChars.length); 
     password += potentialChars.charAt(index);
