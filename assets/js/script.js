@@ -1,6 +1,12 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 
+// Generate a random character from a provided string
+function randomChar(inputString) {
+  var index = Math.floor(Math.random() * inputString.length); 
+  return inputString.charAt(index);
+}
+
 // Prompt for password characteristics and generate
 function generatePassword() {
   var passwordLength;
@@ -12,6 +18,12 @@ function generatePassword() {
   var validChars = false;
   var potentialChars = "";
   var password = "";
+  var initialPasswordLength;
+
+  var lowerCaseLetters = "abcdefghijklmnopqrstuvwxyz";
+  var upperCaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  var numerals = "0123456789";
+  var specialCharacters = "!#$%&'()*+,-./:;<=>?@[]^_`{}|~";
 
   // Prompt for password length and validate (8-128 characters)
   while (!validLength) {
@@ -39,25 +51,29 @@ function generatePassword() {
     }
   }
 
-  // Create string of possible characters
+  /* Create string of possible characters, adding one of each type first
+     to guarantee usage of all included types */
   if (useLowerCase) {
-    potentialChars += "abcdefghijklmnopqrstuvwxyz";
+    potentialChars += lowerCaseLetters;
+    password += randomChar(lowerCaseLetters);
   }
   if (useUpperCase) {
-    potentialChars += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    potentialChars += upperCaseLetters;
+    password += randomChar(upperCaseLetters);
   }
   if (useNumbers) {
-    potentialChars += "0123456789";
+    potentialChars += numerals;
+    password += randomChar(numerals);
   }
   if (useSpecial) {
-    potentialChars += "!#$%&'()*+,-./:;<=>?@[]^_`{}|~";
+    potentialChars += specialCharacters;
+    password += randomChar(specialCharacters);
   }
 
-  // Generate password string and return
-  for (var i = 0; i < passwordLength; i++) {
-    // Generate random index from 0 to length of potential character string
-    var index = Math.floor(Math.random() * potentialChars.length); 
-    password += potentialChars.charAt(index);
+  // Generate rest of password string and return
+  initialPasswordLength = password.length;
+  for (var i = 0; i < passwordLength - initialPasswordLength; i++) {
+    password += randomChar(potentialChars);
   }
 
   return password;
